@@ -24,6 +24,7 @@ class gist {
 
 	public function plugins_loaded()
 	{
+
 		add_action( 'wp_head', array( $this, 'wp_head' ) );
 
 		load_plugin_textdomain(
@@ -41,26 +42,10 @@ class gist {
 		add_shortcode( $this->get_shortcode_tag(), array( $this, 'shortcode' ) );
 
 		add_filter(
-			'jetpack_shortcodes_to_include',
-			array( $this, 'jetpack_shortcodes_to_include' )
-		 );
-
-		add_filter(
 			'oembed_providers',
 			array( $this, 'oembed_providers' )
 		);
 
-	}
-
-	public function jetpack_shortcodes_to_include( $incs )
-	{
-		$includes = array();
-		foreach ( $incs as $inc ) {
-			if ( !preg_match( "/gist\.php\z/", $inc ) ) {
-				$includes[] = $inc;
-			}
-		}
-		return $includes;
 	}
 
 	function oembed_providers( $providers )
